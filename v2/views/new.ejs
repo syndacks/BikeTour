@@ -1,0 +1,19 @@
+<% include ./partials/header.ejs %>
+
+<div class="container">
+
+<h4>Create a new Hostground</h4>
+	<form class="form-horizontal" action="/hostgrounds" method="POST">
+		<div class="form group">
+			Name<input type = "text" name = "hostName" placeholder = "hostName">
+		</div>		
+
+		<div class="form group">
+			Image<input type="text" name = "hostImage" placeholder="hostImage">
+		</div>
+		<button>Submit!</button>
+	</form>
+
+</div>
+
+<% include ./partials/footer.ejs %>
