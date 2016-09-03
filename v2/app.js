@@ -19,14 +19,16 @@ db.once('open', function(){
 
 var hostgroundSchema = mongoose.Schema({
 	name: String,
-	image: String
+	image: String,
+	comment: String
 });
 
 var Hostground = mongoose.model("Hostground", hostgroundSchema);
 
 // Hostground.create({
 // 	name: "Mark Martin",
-// 	image: "http://embassysuites3.hilton.com/resources/media/es/BTRCSES/en_US/img/shared/full_page_image_gallery/main/ES_downtownbatonrouge_18_712x342_FitToBoxSmallDimension_Center.jpg"
+// 	image: "http://embassysuites3.hilton.com/resources/media/es/BTRCSES/en_US/img/shared/full_page_image_gallery/main/ES_downtownbatonrouge_18_712x342_FitToBoxSmallDimension_Center.jpg",
+// 	comment: "You above water there LSU?"
 // }, function(err, hostground){
 // 	if(err){
 // 		console.log(err)
@@ -65,7 +67,7 @@ app.get('/hostgrounds', function(req, res){
 		if(err){
 			console.log(err)
 		}else{
-			res.render('hostgrounds.ejs', {hostgrounds: allHostgrounds});
+			res.render('index.ejs', {hostgrounds: allHostgrounds});
 		}
 	});
 });
@@ -89,6 +91,18 @@ app.post("/hostgrounds", function(req, res){
 	});
 });
 
+//SHOW ROUTE
+app.get("/hostgrounds/:id", function(req, res){
+	//find hostground with provided ID
+	Hostground.findById(req.params.id, function(err, foundHostground){
+		if(err){
+			console.log(err);
+		} else {
+			//render show template with the "foundHostground" as variable "hostground"
+			res.render("show.ejs", {hostground: foundHostground});
+		}
+	});
+})
 
 
 
