@@ -3,8 +3,11 @@ var app = express();
 var ejs = require('ejs');
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
+var methodOverride = require("method-override");
 
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(methodOverride("_method"));
+
 
 //tell express to serve the public directory (with style)
 app.use(express.static("public"));
@@ -77,12 +80,9 @@ app.get('/hostgrounds/new', function(req, res){
 	res.render('new.ejs');
 });
 
-//POST ROUTE
+//(CREATE) POST ROUTE
 app.post("/hostgrounds", function(req, res){
-	var hostName = req.body.hostName;
-	var hostImage = req.body.hostImage;
-	var newHostGround = {name: hostName, image: hostImage};
-	Hostground.create(newHostGround, function(err, newHostGround){
+	Hostground.create(req.body.hostground, function(err, newHostGround){
 		if(err){
 			console.log(err)
 		}else{
@@ -104,6 +104,42 @@ app.get("/hostgrounds/:id", function(req, res){
 	});
 })
 
+//EDIT ROUTE
+app.get("/hostgrounds/:id/edit", function(req, res){
+	Hostground.findById(req.params.id, function(err, foundHostground){
+		if(err){
+			res.redirect("/hostgrounds/:id/show");
+		}else{
+			res.render("edit.ejs", {hostground:foundHostground});
+		}
+	});
+});
+
+//UPDATE ROUTE
+app.put("/hostgrounds/:id", function(req, res){
+	//takes three arguments: ID defined by, new Data, and callback
+	Hostground.findByIdAndUpdate(req.params.id, req.body.hostground, function(err, updatedHostground){
+		if(err){
+			res.redirect("/hostgrounds/:id/show");
+		} else{
+			res.redirect("/hostgrounds/" + req.params.id); 
+		}
+	});
+});
+
+
+//DESTROY ROUTE
+app.delete("/hostgrounds/:id", function(req, res){
+	//takes two arguments:
+	Hostground.findByIdAndRemove(req.params.id, function(err){
+		if(err){
+			console.log(err);
+			res.redirect("/hostgrounds/:id");
+		} else {
+			res.redirect("/hostgrounds");
+		}
+	});
+});
 
 
 
