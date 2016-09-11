@@ -1,0 +1,16 @@
+/*body{
+	background:yellow;
+	color: purple;
+}
+*/
+.thumbnail img {
+	width: 100%;
+}
+
+div.thumbnail {
+	padding: 0;
+}
+
+.thumbnail .caption-full {
+	padding:9px;
+}
