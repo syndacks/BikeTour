@@ -1,0 +1,96 @@
+<% include //partials/header.ejs %>
+
+
+<div class="container">
+
+	<div class ="row">
+
+		<div class = "col-md-4">
+			<div class="list-group">
+				<li class = "list-group-item active">Map</li>
+				<!-- <li class = "list-group-item">Map</li> -->
+
+		<!-- //////////GOOGLE MAP API\\\\\\\\\\\\\\\\\\ -->
+		    <script>
+			    var map;
+			    var coordinates = {lat: <%=hostground.latitude %>, lng:  <%=hostground.longitude %>};
+			    function initMap() {
+			    	map = new google.maps.Map(document.getElementById('map'), {
+
+			          center: coordinates,
+			          zoom: 10
+			        });
+
+				    var marker = new google.maps.Marker({
+			          position: coordinates,
+			          map: map
+			        });   
+			    }
+		    </script>
+		    <div class="img-responsive" id="map" style="width:366px; height:380px"></div>
+		    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqaDMyAiF2vbpg-NL-cBSaZtHFQUKF5wE&callback=initMap"
+		    async defer></script>
+			</div>
+		</div>
+
+		<div class = "col-md-8">
+			<div class = "thumbnail">
+				<h4> <%= hostground.name %> </h4>
+				<p>	"<em><%= hostground.description %>"</em></p>
+				<img class="img-responsive" src="<%= hostground.image %>">
+				<div class = "caption-full">
+					<!-- <h4 class = "pull-right">$9.00/night</h4> -->
+					<p>
+						<em>Submitted By <%= hostground.author.username %></em>
+					</p>
+					<% if(currentUser && hostground.author.id.equals(currentUser._id)) { %>
+						<a class="btn btn-xs btn-warning" href ="/hostgrounds/<%= hostground._id %>/edit">Edit</a>
+						<form id="delete-form" action = "/hostgrounds/<%= hostground._id %>?_method=DELETE" method="POST">
+							<button class = "btn btn-xs btn-danger">Delete</button>
+						</form>
+					<% } %>
+				</div>	
+			</div>   
+
+			<div class = "panel">
+				<h4 class="journal"><strong>Journal</strong></h4>
+				<div class="journal">	
+					<%- hostground.journal %>
+				</div>
+			</div>
+
+			<div class="well">
+				<div class="text-right">
+					<a class="btn btn-success" href="/hostgrounds/<%= hostground._id %>/comments/new">Add New Comment</a>
+				</div>
+					<hr>
+					<% hostground.comments.forEach(function(comment){ %>
+						<div class="row">
+							<div class = "col-md-12">
+								<strong><%= comment.author.username %></strong>
+								<span class = "pull-right">10 days ago</span>
+								<p>
+									<%= comment.text %>
+								</p>
+
+							<% if(currentUser && comment.author.id.equals(currentUser._id)) { %>
+
+								<a class="btn btn-xs btn-warning" href="/hostgrounds/<%=hostground._id%>/comments/<%=comment._id%>/edit">Edit
+								</a>
+								<form id = "delete-form" action="/hostgrounds/<%=hostground._id%>/comments/<%=comment._id%>?_method=DELETE" method = "POST">
+								<input type="submit" class="btn btn-xs btn-danger" value="Delete">
+							<% } %>
+								</form>
+							</div>
+						</div>
+					<% }) %>
+				</div>
+
+		</div>
+	</div>
+</div>	
+
+
+
+
+<% include //partials/footer.ejs %>
