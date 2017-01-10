@@ -34,6 +34,6 @@ First create an account (handled by passport-local). If you do not create an acc
 2. Leave comments on other people's hostgrounds.
 
 ##Desired Improvements
-There are many things I'd like to improve on. This list is largely to keep track of my own thoughts, but if you have suggestions please let me know: [math.milliken@gmail.com](mailto:math.milliken@gmail.com)
+There are many things I'd like to improve on. This list is largely to keep track of my own thoughts, but if you have suggestions please let me know.
 
 1. Create "Stories" so users can upload their trip as opposed to one hostground.
