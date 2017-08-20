@@ -17,6 +17,8 @@ var commentRoutes = require("./routes/comments.js");
 var hostgroundRotes = require("./routes/hostgrounds.js");
 var indexRoutes = require("./routes/index.js");
 
+var CLIENTSECRET = require("./clientsecret.js")
+
 //connect to DB
 
 //When Deploying, uncomment next line:
@@ -44,7 +46,7 @@ app.use(flash());
 
 //Passport configuration
 app.use(require("express-session")({
-	secret: "sometimesthepriceyoupay",
+	secret: "hunter22",
 	resave: false,
 	saveUninitialize: false
 }));

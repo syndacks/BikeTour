@@ -75,7 +75,7 @@ router.put("/:id", middleware.checkHostgroundOwnership, function(req, res){
 		if(err){
 			res.redirect("/hostgrounds");
 		} else{
-			res.redirect("/hostgrounds/" + req.params.id); 
+			res.redirect("/hostgrounds/" + req.params.id);
 		}
 	});
 });
