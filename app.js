@@ -17,17 +17,18 @@ var commentRoutes = require("./routes/comments.js");
 var hostgroundRotes = require("./routes/hostgrounds.js");
 var indexRoutes = require("./routes/index.js");
 
-var CLIENTSECRET = require("./clientsecret.js")
+// var CLIENTSECRET = require("./clientsecret.js")
 
-//connect to DB
 
 //When Deploying, uncomment next line:
-mongoose.connect(process.env.DATABASEURL);
+// mongoose.connect(process.env.DATABASEURL);
 
 // LOCAL HOST:
-// mongoose.connect("mongodb://localhost/test");
+console.log("111111112222222233333333")
+mongoose.connect("mongodb://mongo:27017/test");
+
 // MONGOLAB URL:
-mongoose.connect("mongodb://dacksmdm:password@ds035836.mlab.com:35836/bikecamp");
+// mongoose.connect("mongodb://dacksmdm:password@ds035836.mlab.com:35836/bikecamp");
 
 var db = mongoose.connection;
 db.on("error", console.log.bind(console, 'connection-error:'));
@@ -35,14 +36,14 @@ db.once('open', function(){
 	console.log("we are connected!")
 	});
 
+seedDB();
+
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
 //tell express to serve the public directory (with style) (__dirname is the full dir name)
 app.use(express.static(__dirname + "/public"));
 app.use(flash());
-
-// seedDB();
 
 //Passport configuration
 app.use(require("express-session")({

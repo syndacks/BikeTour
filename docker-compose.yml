@@ -1,0 +1,16 @@
+version: "3.0"
+
+services:
+  # BikeTour Web-app
+  web:
+    restart: always
+    build: .
+    ports:
+      - "3000:3000"
+    links:
+      - mongo
+  # Mongo DB
+  mongo:
+    image: mongo
+    ports:
+      - "27018:27017"

@@ -25,45 +25,45 @@ var seedData = [
 function seedDB(){
 	//remove campgrounds
 	Hostground.remove({}, function(err){
-		// if(err){
-		// 	console.log(err)
-		// }
-		// console.log("removed campgrounds");
-		// //add a few campgrounds (need to place this inside the .remove function *after* it finishes to ensure we add hostgrounds after we delete them)
-		// seedData.forEach(function(seed){
-		// 	Hostground.create(seed, function(err, hostground){
-		// 		if(err){
-		// 			console.log(err);
-		// 		}else{
-		// 			console.log("newly created hostground");
-		// 			//create a comment
-		// 			Comment.create(
-		// 				{
-		// 					text:"this place is great but I wish there was coffee",
-		// 					author: "Steve"
-		// 				}, function(err, comment){
-		// 					if (err){
-		// 						console.log(err);
-		// 					} else {
-		// 					hostground.comments.push(comment);
-		// 					console.log("added a comment");
-		// 					hostground.save();
-		// 					}	
-		// 				});
-		// 		}
-		// 	});
-		// });
+		if(err){
+			console.log(err)
+		}
+		console.log("removed campgrounds");
+		//add a few campgrounds (need to place this inside the .remove function *after* it finishes to ensure we add hostgrounds after we delete them)
+		seedData.forEach(function(seed){
+			Hostground.create(seed, function(err, hostground){
+				if(err){
+					console.log(err);
+				}else{
+					console.log("newly created hostground");
+					//create a comment
+					Comment.create(
+						{
+							text:"this place is great but I wish there was coffee",
+							author: "Steve"
+						}, function(err, comment){
+							if (err){
+								console.log(err);
+							} else {
+							hostground.comments.push(comment);
+							console.log("added a comment");
+							hostground.save();
+							}	
+						});
+				}
+			});
+		});
 	});
-	// //find all campgrounds and print them out
-	// Hostground.find({}, function(err, hostgrounds){
-	// 	if(err){
+	//find all campgrounds and print them out
+	Hostground.find({}, function(err, hostgrounds){
+		if(err){
 
-	// 		console.log(err)
-	// 	}else{
-	// 		console.log("all the hostgrounds:")
-	// 		console.log(hostgrounds)
-	// 	}
-	// });
+			console.log(err)
+		}else{
+			console.log("all the hostgrounds:")
+			console.log(hostgrounds)
+		}
+	});
 }
 
 module.exports = seedDB;
